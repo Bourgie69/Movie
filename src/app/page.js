@@ -4,10 +4,8 @@ import Nav from "./_features/Header";
 import HeroSection from "./_features/HeroSection";
 import MovieList from "./_features/MovieList";
 import Footer from "./_features/Footer"
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [movies, setMovies] = useState([])
 
   return (
     <>
@@ -17,13 +15,19 @@ export default function Home() {
 
       <MovieList
       headerTag='Upcoming'
-      seeMoreDisplay={true}/>
+      seeMoreDisplay={true}
+      category={'upcoming'}
+      routePage={'/upcoming'}/>
       <MovieList
       headerTag='Popular'
-      seeMoreDisplay={true}/>
+      seeMoreDisplay={true}
+      category={'popular'}
+      routePage={'/popular'}/>
       <MovieList
       headerTag='Top Rated'
-      seeMoreDisplay={true}/>
+      seeMoreDisplay={true}
+      category={'top_rated'}
+      routePage={'top_rated'}/>
 
       <Footer/>
     </>

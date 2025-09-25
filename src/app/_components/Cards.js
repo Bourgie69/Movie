@@ -1,16 +1,21 @@
 import Image from "next/image";
+import StarIcon from "../_icons/StarIcon";
 
-const Card = ({imageSource, title}) => {
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
+const Card = ({imageSource, title, rating}) => {
   return (
-    <div className="bg-white rounded shadow p-4">
+    <div className="bg-white rounded shadow transition-transform duration-200 ease-in-out hover:scale-120">
         <Image 
         src={imageSource}
         alt={title}
-        width={200}
-        height={400}
+        width={500}
+        height={1000}
         />
-      <h2 className="text-lg mt-2 font-semibold">{title}</h2>
+        <p className="flex items-center gap-1 pl-4 pt-2.5">
+          <StarIcon/>
+          {rating}
+        </p>
+        
+      <p className="mt-2 font-semibold pl-4">{title}</p>
     </div>
   );
 };

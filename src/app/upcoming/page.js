@@ -1,3 +1,5 @@
+'use client'
+
 import Header from "../_features/Header";
 import MovieList from "../_features/MovieList";
 import PageList from "../_features/PageList";
@@ -8,11 +10,15 @@ const MoviesPage = () => {
     <>
       <Header />
 
-      <MovieList headerTag="Upcoming" seeMoreDisplay={false} />
+      <MovieList
+        headerTag="Upcoming"
+        seeMoreDisplay={false}
+        category={"upcoming"}
+      />
 
       <PageList />
 
-      <Footer/>
+      <Footer />
     </>
   );
 };

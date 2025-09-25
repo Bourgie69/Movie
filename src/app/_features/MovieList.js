@@ -4,14 +4,12 @@ import Link from "next/link";
 import Card from "../_components/Cards";
 import { useState, useEffect } from "react";
 
-const MovieList = (props) => {
-  const { headerTag, seeMoreDisplay } = props;
-
-  const [movies, setMovies] = useState({});
+const MovieList = ({ headerTag, seeMoreDisplay, category, routePage }) => {
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const apiLink =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`;
 
   const options = {
     method: "GET",
@@ -24,8 +22,8 @@ const MovieList = (props) => {
 
   const getData = async () => {
     setLoading(true);
-    const data = await fetch(apiLink, options);
-    const jsonData = await data.json();
+    const response = await fetch(apiLink, options);
+    const jsonData = await response.json();
     setMovies(jsonData.results);
     setLoading(false);
   };
@@ -34,31 +32,33 @@ const MovieList = (props) => {
     getData();
   }, []);
 
-    console.log(movies.type)
-
   return (
-    <>
-      <div className="px-10">
-        <div className="flex justify-between items-center">
-          <p className="font-bold text-lg py-10">{headerTag}</p>
-          <Link
-            href="/movies"
-            style={{ display: seeMoreDisplay ? "block" : "none" }}
-          >
+    <div className="px-10">
+      <div className="flex justify-between items-center">
+        <p className="font-bold text-lg py-10">{headerTag}</p>
+        {seeMoreDisplay && (
+          <Link href={routePage}>
             <button>See More &#8594;</button>
           </Link>
-        </div>
-
-        <div className="grid grid-cols-4 grid-rows-2 gap-10 mb-8">
-            {movies.type !== undefined ? movies.map((movie, index) => {
-                return <Card
-                key={index}
-                alt={movie.title}
-                imageSource={movie.poster_path}/>
-            }): console.log('error')}
-        </div>
+        )}
       </div>
-    </>
+
+      <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          movies.map((movie, index) => (
+            <Card
+              key={index}
+              alt={movie.title}
+              title={movie.title}
+              imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              rating={movie.vote_average.toFixed(1)}
+            />
+          ))
+        )}
+      </div>
+    </div>
   );
 };
 

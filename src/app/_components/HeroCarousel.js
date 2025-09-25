@@ -1,35 +1,37 @@
+import PlayIcon from "../_icons/PlayIcon";
+import Image from "next/image";
+import StarIcon from "../_icons/StarIcon";
+
 const HeroCarousel = (props) => {
-  const { movieTitle, rating, desc } = props;
+  const { movieTitle, rating, desc, imageSource } = props;
 
   return (
     <>
-      <div className="bg-gray-300 w-full h-[400px]">
+      <div className="w-full text-white">
         <div className="flex flex-col gap-5">
+          <Image
+          src={imageSource}
+          alt="Movie Poster"
+          height={900}
+          width={1600}
+          />
 
-          <div className="pl-30 pt-20">
+
+          <div className="pt-20 absolute">
             <p className="text-lg">Now Playing:</p>
             <p className="font-bold text-3xl">{movieTitle}</p>
-            <p>{rating}</p>
+            <div className="flex items-center gap-2.5">
+              <StarIcon/>
+              <p>{rating}</p>
+            </div>
+            
           </div>
 
-          <div className="pl-30 flex flex-col gap-2.5 ">
+          <div className="pl-30 flex flex-col gap-2.5 absolute">
             <p className="w-[500px]">{desc}</p>
             <button className="flex gap-2.5 items-center bg-white rounded-sm p-2.5 w-fit">
-              <svg
-                width="12"
-                height="14"
-                viewBox="0 0 12 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1.3335 1L10.6668 7L1.3335 13V1Z"
-                  stroke="#18181B"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <p>Wach Trailer</p>
+              <PlayIcon/>
+              <p className="text-black">Wach Trailer</p>
             </button>
           </div>
         </div>
