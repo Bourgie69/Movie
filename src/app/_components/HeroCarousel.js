@@ -2,41 +2,39 @@ import PlayIcon from "../_icons/PlayIcon";
 import Image from "next/image";
 import StarIcon from "../_icons/StarIcon";
 
-const HeroCarousel = (props) => {
-  const { movieTitle, rating, desc, imageSource } = props;
-
+const HeroCarousel = ({ title, rating, desc, imageSource }) => {
   return (
-    <>
-      <div className="w-full text-white">
-        <div className="flex flex-col gap-5">
-          <Image
-          src={imageSource}
-          alt="Movie Poster"
-          height={900}
-          width={1600}
-          />
+    <div className=" w-full h-[500px] text-white">
+      
+        <Image
+        src={imageSource}
+        alt="Movie Poster"
+        layout="fill"
+        objectFit="cover"
+      />
+      
+<div className=" absolute inset-0 bg-gradient-to-r from-black/30 to-black/30"/>
 
-
-          <div className="pt-20 absolute">
-            <p className="text-lg">Now Playing:</p>
-            <p className="font-bold text-3xl">{movieTitle}</p>
-            <div className="flex items-center gap-2.5">
-              <StarIcon/>
-              <p>{rating}</p>
+      <div className="relative  h-full flex items-center pl-20">
+        <div className="max-w-xl space-y-5">
+          <div>
+            <p className="text-lg text-gray-300">Now Playing:</p>
+            <h2 className="font-bold text-3xl">{title}</h2>
+            <div className="flex items-center gap-2 mt-2">
+              <StarIcon />
+              <p className="font-semibold">{rating}</p>
             </div>
-            
           </div>
 
-          <div className="pl-30 flex flex-col gap-2.5 absolute">
-            <p className="w-[500px]">{desc}</p>
-            <button className="flex gap-2.5 items-center bg-white rounded-sm p-2.5 w-fit">
-              <PlayIcon/>
-              <p className="text-black">Wach Trailer</p>
-            </button>
-          </div>
+          <p className="text-sm text-gray-200">{desc}</p>
+
+          <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
+            <PlayIcon />
+            <span>Watch Trailer</span>
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

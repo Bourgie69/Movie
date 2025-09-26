@@ -1,20 +1,24 @@
-const Arrows = ({ currentIndex }) => {
-  const handleIndex = () => {
-    currentIndex++;
-    console.log(currentIndex);
+const Arrows = ({ setCurrentIndex, total }) => {
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % total);
   };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + total) % total);
+  };
+
   return (
     <>
-      <div className="flex justify-between w-full px-2.5">
+      <div className="flex justify-between w-full px-2.5 absolute">
         <button
           className="h-[54px] w-[54px] text-black bg-white rounded-full"
-          onClick={handleIndex}
+          onClick={handlePrev}
         >
           &#10094;
         </button>
         <button
           className="h-[54px] w-[54px] text-black bg-white rounded-full"
-          onClick={handleIndex}
+          onClick={handleNext}
         >
           &#10095;
         </button>
@@ -22,4 +26,5 @@ const Arrows = ({ currentIndex }) => {
     </>
   );
 };
-export default Arrows;
+
+export default Arrows

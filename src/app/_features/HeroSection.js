@@ -31,25 +31,29 @@ const HeroSection = () => {
     getData();
   }, []);
 
+  const currentMovie = nowPlaying[heroIndex]
+
+  console.log(currentMovie)
+
   console.log(nowPlaying);
   return (
     <>
       <div className="bg-black h-[600px] flex items-center  relative">
         <div className="flex absolute justify-between px-2 w-full">
-          {/* {loading ? (
-            <p>Loading...</p>
-          ) : (
-            nowPlaying.map((movie) => (
-              <HeroCarousel
-                key={movie.id}
-                imageSource={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                rating={movie.vote_average.toFixed(1)}
-                desc={movie.overview}
-              />
-            ))
-          )} */}
+          {loading ? 
+          (<p>Loading...</p>) : 
+          currentMovie ? 
+          (<HeroCarousel
+            title={currentMovie.title}
+            rating={currentMovie.vote_average.toFixed(1)}
+            desc={currentMovie.overview}
+            imageSource={`https://image.tmdb.org/t/p/w500${currentMovie.backdrop_path}`}
+          />): 
+          (<p>No movies found.</p>)}
         </div>
-        <Arrows currentIndex={heroIndex} />
+        <Arrows
+        setCurrentIndex={setHeroIndex}
+        total={nowPlaying.length} />
       </div>
     </>
   );

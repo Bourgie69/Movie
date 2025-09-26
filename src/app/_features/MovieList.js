@@ -4,12 +4,12 @@ import Link from "next/link";
 import Card from "../_components/Cards";
 import { useState, useEffect } from "react";
 
-const MovieList = ({ headerTag, seeMoreDisplay, category, routePage }) => {
+const MovieList = ({ headerTag, seeMoreDisplay, category, routePage, pageNumber }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const apiLink =
-    `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`;
+    `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=${pageNumber}`;
 
   const options = {
     method: "GET",
@@ -30,7 +30,7 @@ const MovieList = ({ headerTag, seeMoreDisplay, category, routePage }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [category, pageNumber]);
 
   return (
     <div className="px-10">
@@ -47,9 +47,9 @@ const MovieList = ({ headerTag, seeMoreDisplay, category, routePage }) => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          movies.map((movie, index) => (
+          movies.slice(0, 15).map((movie) => (
             <Card
-              key={index}
+              key={movie.id}
               alt={movie.title}
               title={movie.title}
               imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

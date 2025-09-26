@@ -1,4 +1,5 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import LogoPurple from "../_icons/LogoPurple";
 import DropDownIcon from "../_icons/DropDownIcon";
@@ -6,12 +7,26 @@ import SearchIcon from "../_icons/SearchIcon";
 import MoonIcon from "../_icons/MoonIcon";
 
 const Nav = () => {
+    const [searchResult, setSearchResult] = useState("");
+
+    const handleSearch = (e) => {
+      setSearchResult(e.target.value);
+    };
+
+    const handleEnter = (e) => {
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        window.location.href = `/search?query=${encodeURIComponent(searchResult)}`;
+      }
+    }
+
+
   return (
     <>
       <nav className="flex justify-around items-center p-2 bg-white shadow">
         <Link href="/">
           <div className="flex items-center gap-2 cursor-pointer">
-            <LogoPurple/>
+            <LogoPurple />
 
             <p className="italic font-bold text-purple-500 text-lg">Movie Z</p>
           </div>
@@ -19,19 +34,26 @@ const Nav = () => {
 
         <div className="flex gap-6 items-center">
           <div className="flex items-center gap-2 border p-2 rounded-sm">
-            <DropDownIcon/>
+            <DropDownIcon />
 
             <p className="text-sm">Genre</p>
           </div>
           <div className="flex border items-center rounded-sm p-2 gap-3 w-[400px]">
-            <SearchIcon/>
+            <SearchIcon />
 
-            <input className="" placeholder="Search..." />
+            <input
+              className="w-full"
+              placeholder="Search..."
+              onChange={handleSearch}
+              onKeyDown={handleEnter}
+              name="search"
+              value={searchResult}
+            />
           </div>
         </div>
 
         <button className=" w-8 h-8 rounded-lg flex items-center justify-center border">
-          <MoonIcon/>
+          <MoonIcon />
         </button>
       </nav>
     </>

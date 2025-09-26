@@ -17,17 +17,20 @@ export default function Home() {
       headerTag='Upcoming'
       seeMoreDisplay={true}
       category={'upcoming'}
-      routePage={'/upcoming'}/>
+      routePage={'/upcoming'}
+      pageNumber={'1'}/>
       <MovieList
       headerTag='Popular'
       seeMoreDisplay={true}
       category={'popular'}
-      routePage={'/popular'}/>
+      routePage={'/popular'}
+      pageNumber={'1'}/>
       <MovieList
       headerTag='Top Rated'
       seeMoreDisplay={true}
       category={'top_rated'}
-      routePage={'top_rated'}/>
+      routePage={'top_rated'}
+      pageNumber={'1'}/>
 
       <Footer/>
     </>
