@@ -7,16 +7,16 @@ import SearchIcon from "../_icons/SearchIcon";
 import MoonIcon from "../_icons/MoonIcon";
 
 const Nav = () => {
-    const [searchResult, setSearchResult] = useState("");
+    const [searchParams, setSearchParams] = useState("");
 
     const handleSearch = (e) => {
-      setSearchResult(e.target.value);
+      setSearchParams(e.target.value);
     };
 
     const handleEnter = (e) => {
       if(e.key === 'Enter'){
         e.preventDefault();
-        window.location.href = `/search?query=${encodeURIComponent(searchResult)}`;
+        window.location.href = `/search?query=${(searchParams)}`;
       }
     }
 
@@ -47,7 +47,7 @@ const Nav = () => {
               onChange={handleSearch}
               onKeyDown={handleEnter}
               name="search"
-              value={searchResult}
+              value={searchParams}
             />
           </div>
         </div>
