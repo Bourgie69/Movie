@@ -1,25 +1,55 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import LogoPurple from "../_icons/LogoPurple";
 import DropDownIcon from "../_icons/DropDownIcon";
 import SearchIcon from "../_icons/SearchIcon";
 import MoonIcon from "../_icons/MoonIcon";
 
-const Nav = () => {
-    const [searchParams, setSearchParams] = useState("");
+const Header = () => {
+  const [searchParams, setSearchParams] = useState("");
 
-    const handleSearch = (e) => {
-      setSearchParams(e.target.value);
-    };
+  const [genres, setGenres] = useState([]);
+  const [showGenres, setShowGenres] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const handleEnter = (e) => {
-      if(e.key === 'Enter'){
-        e.preventDefault();
-        window.location.href = `/search?query=${(searchParams)}`;
-      }
+  const genreLink = `https://api.themoviedb.org/3/genre/movie/list?language=en`;
+
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
+    },
+  };
+
+  const genrePage = (genreId) => {
+    window.location.href = `/genres/${genreId}`;
+  }
+
+  const getGenres = async () => {
+    setLoading(true);
+    const response = await fetch(genreLink, options);
+    const jsonData = await response.json();
+    setGenres(jsonData.genres);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getGenres();
+  }, []);
+
+  const handleSearch = (e) => {
+    setSearchParams(e.target.value);
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      window.location.href = `/search?query=${searchParams}`;
     }
-
+  };
 
   return (
     <>
@@ -33,7 +63,13 @@ const Nav = () => {
         </Link>
 
         <div className="flex gap-6 items-center">
-          <div className="flex items-center gap-2 border p-2 rounded-sm">
+          <div
+            className="flex items-center gap-2 border p-2 rounded-sm"
+            onClick={() => {
+              setShowGenres(!showGenres);
+              console.log(showGenres);
+            }}
+          >
             <DropDownIcon />
 
             <p className="text-sm">Genre</p>
@@ -56,8 +92,32 @@ const Nav = () => {
           <MoonIcon />
         </button>
       </nav>
+
+      <div
+        className="text-xs h-[fit] w-[fit] border bg-white absolute left-85 z-10 mt-2 p-4 rounded-xl"
+        style={{ display: showGenres ? "block" : "none" }}
+      >
+        <p className="text-2xl font-semibold">Genres</p>
+        <p className="text-lg ">See lists of movies by genre</p>
+        <hr />
+        <div className="grid grid-cols-4 gap-x-5 gap-y-2 pt-2">
+          {loading ? (
+            <p>Loading</p>
+          ) : (
+            genres.map((genre) => (
+              <span
+                className="border h-fit w-fit py-0.5 px-2.5 rounded-3xl hover:cursor-pointer"
+                key={genre.id}
+                onClick={() => genrePage(genre.id)}
+              >
+                {genre.name}
+              </span>
+            ))
+          )}
+        </div>
+      </div>
     </>
   );
 };
 
-export default Nav;
+export default Header;

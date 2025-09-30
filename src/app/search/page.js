@@ -53,10 +53,11 @@ const SearchResults = ({ search }) => {
           searchResults.slice(0, 15).map((movie) => (
               <Card
                 key={movie.id}
+                movId={movie.id}
                 alt={movie.title}
                 title={movie.title}
                 imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                rating={movie.vote_average.toFixed(1)}
+                rating={movie.vote_average?.toFixed(1)}
               />
           ))
         )}

@@ -23,7 +23,7 @@ const HeroSection = () => {
     setLoading(true);
     const response = await fetch(apiLink, options);
     const jsonData = await response.json();
-    setNowPlaying(jsonData.results.slice(0, 4));
+    setNowPlaying(jsonData.results.slice(0, 5));
     setLoading(false);
   };
 
@@ -38,7 +38,7 @@ const HeroSection = () => {
   console.log(nowPlaying);
   return (
     <>
-      <div className="bg-black h-[600px] flex items-center  relative">
+      <div className="bg-black h-[640px] flex items-center  relative">
         <div className="flex absolute justify-between px-2 w-full">
           {loading ? 
           (<p>Loading...</p>) : 
@@ -47,7 +47,7 @@ const HeroSection = () => {
             title={currentMovie.title}
             rating={currentMovie.vote_average.toFixed(1)}
             desc={currentMovie.overview}
-            imageSource={`https://image.tmdb.org/t/p/w500${currentMovie.backdrop_path}`}
+            imageSource={`https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`}
           />): 
           (<p>No movies found.</p>)}
         </div>

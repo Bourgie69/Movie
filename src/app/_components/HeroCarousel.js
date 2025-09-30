@@ -4,7 +4,7 @@ import StarIcon from "../_icons/StarIcon";
 
 const HeroCarousel = ({ title, rating, desc, imageSource }) => {
   return (
-    <div className=" w-full h-[500px] text-white">
+    <div className=" w-full h-[600] text-white">
       
         <Image
         src={imageSource}

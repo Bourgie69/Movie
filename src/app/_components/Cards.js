@@ -11,9 +11,9 @@ const Card = ({imageSource, title, rating, movId}) => {
     onClick={getID}>
         <Image 
         src={imageSource}
-        alt={title}
-        width={300}
-        height={450}
+        alt={'poster'}
+        width={200}
+        height={200}
         />
         <p className="flex items-center gap-1 pl-4 pt-2.5">
           <StarIcon/>

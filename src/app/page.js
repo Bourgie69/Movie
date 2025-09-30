@@ -1,6 +1,6 @@
 "use client"
 
-import Nav from "./_features/Header";
+import Header from "./_features/Header";
 import HeroSection from "./_features/HeroSection";
 import MovieList from "./_features/MovieList";
 import Footer from "./_features/Footer"
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <Nav/>
+      <Header/>
 
       <HeroSection/>
 
