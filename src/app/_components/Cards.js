@@ -7,20 +7,22 @@ const Card = ({imageSource, title, rating, movId}) => {
     window.location.href = `/individualMovie/${movId}`;
   }
   return (
-    <div className="bg-white rounded w-fit text-ellipsis shadow transition-transform duration-200 ease-in-out hover:scale-105"
-    onClick={getID}>
-        <Image 
+    <div
+      className="bg-white rounded shadow transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer w-[200px] h-[400px] flex flex-col overflow-hidden"
+      onClick={getID}
+    >
+      <Image
         src={imageSource}
         alt={'poster'}
-        width={200}
-        height={200}
-        />
-        <p className="flex items-center gap-1 pl-4 pt-2.5">
-          <StarIcon/>
-          {rating}
-        </p>
-        
-      <p className="mt-2 font-semibold pl-4">{title}</p>
+        width={220}
+        height={330}
+        className="object-cover rounded-t"
+      />
+      <p className="flex items-center gap-1 pl-4 pt-2.5">
+        <StarIcon/>
+        {rating}
+      </p>
+      <p className="mt-2 font-semibold pl-4 line-clamp-2">{title}</p>
     </div>
   );
 };

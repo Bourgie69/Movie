@@ -6,6 +6,7 @@ import Footer from "../../_features/Footer";
 import Card from "@/app/_components/Cards";
 import Image from "next/image";
 import StarIcon from "@/app/_icons/StarIcon";
+import Link from "next/link";
 
 const individual = () => {
   const [movie, setMovie] = useState([]);
@@ -54,7 +55,7 @@ const individual = () => {
     getMore();
   }, [params.id]);
 
-  console.log(movie);
+  console.log(credits);
 
   return (
     <>
@@ -78,7 +79,6 @@ const individual = () => {
             <p>{movie.vote_count ? movie.vote_count : "N/A"}</p>
           </div>
         </div>
-
         <div className="flex gap-2.5">
           <Image
             src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -92,36 +92,35 @@ const individual = () => {
             height={400}
             width={750}
           />
+        </div>{" "}
+        <div className="py-2.5">
+           {(movie?.genres || []).map((genre, idx) => (
+          <span
+            key={genre.id || idx}
+            className="mr-2 border rounded-2xl px-2.5"
+          >
+            {genre.name}
+          </span>
+        ))}
         </div>
-        <p>{movie.overview}</p>
-        <p>
- {(movie?.genres || []).map((genre, idx) => (
-  <span key={genre.id || idx} className="mr-2">
-    {genre.name}
-  </span>
-))}
-
-
-</p>
-
-        
-
+       
+        <p className="mb-5">{movie.overview}</p>
+        <p></p>
         <div className="flex gap-2.5">
-          <p>Director</p>
+          <p className="font-bold">Director</p>
           {credits?.crew?.map((member) =>
             member.job === "Director" ? (
               <p key={member.id}>{member.name}</p>
             ) : null
           )}
         </div>
-
         <hr />
-
-        <div className="flex justify-between">
-          <p>More like this</p>
-          <button>See More &#8594;</button>
+        <div className="flex justify-between pt-10">
+          <p className="text-2xl font-bold">More like this</p>
+          <Link href={`/similarMovies/${params.id}`}>
+            <button>See More &#8594;</button>
+          </Link>
         </div>
-
         <div className="flex gap-10 p-10">
           {moreMovies ? (
             moreMovies
