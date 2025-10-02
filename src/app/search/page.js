@@ -49,7 +49,7 @@ const SearchResults = ({ search }) => {
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
         {loading ? (
           <p>Loading...</p>
-        ) : (
+        ) : searchResults ? (
           searchResults.slice(0, 15).map((movie) => (
               <Card
                 key={movie.id}
@@ -60,7 +60,7 @@ const SearchResults = ({ search }) => {
                 rating={movie.vote_average?.toFixed(1)}
               />
           ))
-        )}
+        ): <p>No results.</p>}
       </div>
       <Footer />
     </>

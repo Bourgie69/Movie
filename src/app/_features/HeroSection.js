@@ -10,6 +10,8 @@ const HeroSection = () => {
   const apiLink =
     "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
 
+  const [trailer, setTrailer] = useState([]);
+
   const options = {
     method: "GET",
     headers: {
@@ -26,34 +28,47 @@ const HeroSection = () => {
     setNowPlaying(jsonData.results.slice(0, 5));
     setLoading(false);
   };
-
   useEffect(() => {
     getData();
   }, []);
+  const currentMovie = nowPlaying[heroIndex];
 
-  const currentMovie = nowPlaying[heroIndex]
 
-  console.log(currentMovie)
 
-  console.log(nowPlaying);
+  const getTrailer = async () => { 
+    
+    const trailerLink = `https://api.themoviedb.org/3/movie/${currentMovie.id}/videos?language=en-US`;
+
+    const response = await fetch(trailerLink, options);
+    const jsonData = await response.json();
+    console.log(jsonData)
+    setTrailer(jsonData.results);
+  };
+
+  useEffect(() => {
+    getTrailer()
+  }, [])
+
+
   return (
     <>
-      <div className="bg-black h-[640px] flex items-center  relative">
+      <div className="bg-black h-[720px] flex items-center  relative">
         <div className="flex absolute justify-between px-2 w-full">
-          {loading ? 
-          (<p>Loading...</p>) : 
-          currentMovie ? 
-          (<HeroCarousel
-            title={currentMovie.title}
-            rating={currentMovie.vote_average.toFixed(1)}
-            desc={currentMovie.overview}
-            imageSource={`https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`}
-          />): 
-          (<p>No movies found.</p>)}
+          {loading ? (
+            <p>Loading...</p>
+          ) : currentMovie ? (
+            <HeroCarousel
+              title={currentMovie.title}
+              rating={currentMovie.vote_average.toFixed(1)}
+              desc={currentMovie.overview}
+              imageSource={`https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`}
+              trailer={trailer}
+            />
+          ) : (
+            <p>No movies found.</p>
+          )}
         </div>
-        <Arrows
-        setCurrentIndex={setHeroIndex}
-        total={nowPlaying.length} />
+        <Arrows setCurrentIndex={setHeroIndex} total={nowPlaying.length} />
       </div>
     </>
   );

@@ -1,10 +1,11 @@
 import PlayIcon from "../_icons/PlayIcon";
 import Image from "next/image";
 import StarIcon from "../_icons/StarIcon";
+import TrailerButton from "./TrailerButton"
 
-const HeroCarousel = ({ title, rating, desc, imageSource }) => {
+const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
   return (
-    <div className=" w-full h-[600] text-white">
+    <div className=" w-full h-[700] text-white">
       
         <Image
         src={imageSource}
@@ -28,10 +29,8 @@ const HeroCarousel = ({ title, rating, desc, imageSource }) => {
 
           <p className="text-sm text-gray-200">{desc}</p>
 
-          <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
-            <PlayIcon />
-            <span>Watch Trailer</span>
-          </button>
+          <TrailerButton 
+          trailer={trailer}/>
         </div>
       </div>
     </div>
