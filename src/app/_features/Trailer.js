@@ -12,7 +12,7 @@ const Trailer = ({ trailer, watchTrailer, setWatchTrailer }) => {
     <>
       <div>
         <iframe
-          src={`https://www.youtube.com/embed/${trailer?.key}`}
+          src={ watchTrailer? `https://www.youtube.com/embed/${trailer?.key}`: null}
           style={{
             display: watchTrailer ? "block" : "none",
           }}

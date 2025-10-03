@@ -7,12 +7,14 @@ import Card from "@/app/_components/Cards";
 import Image from "next/image";
 import StarIcon from "@/app/_icons/StarIcon";
 import Link from "next/link";
+import TrailerButton from "@/app/_components/TrailerButton";
 
 const individual = () => {
   const [movie, setMovie] = useState([]);
   const [credits, setCredits] = useState([]);
   const [moreMovies, setMoreMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [trailer, setTrailer] = useState([]);
   const params = useParams();
 
   const apiLink = `https://api.themoviedb.org/3/movie/${params.id}?language=en-US&page=1`;
@@ -48,7 +50,18 @@ const individual = () => {
     setMovie(jsonData);
     setLoading(false);
   };
+  const getTrailer = async () => {
+    const trailerLink = `https://api.themoviedb.org/3/movie/${params?.id}/videos?language=en-US`;
 
+    const response = await fetch(trailerLink, options);
+    const jsonData = await response.json();
+    setTrailer(jsonData.results);
+  };
+
+  useEffect(() => {
+    if (params?.id) return;
+    getTrailer();
+  }, []);
   useEffect(() => {
     getData();
     getCredits();
@@ -80,30 +93,36 @@ const individual = () => {
           </div>
         </div>
         <div className="flex gap-2.5">
-          <Image
-            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-            alt="Movie Poster"
-            height={400}
-            width={275}
-          />
-          <Image
-            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-            alt="Movie Poster"
-            height={400}
-            width={750}
-          />
+          <div>
+            <Image
+              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+              alt="Movie Poster"
+              height={400}
+              width={275}
+            />
+          </div>
+          <div>
+            <Image
+              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              alt="Movie Poster"
+              height={400}
+              width={750}
+            />
+            <div className="relative bottom-12 left-2.5">
+              <TrailerButton trailer={trailer} />
+            </div>
+          </div>
         </div>{" "}
         <div className="py-2.5">
-           {(movie?.genres || []).map((genre, idx) => (
-          <span
-            key={genre.id || idx}
-            className="mr-2 border rounded-2xl px-2.5"
-          >
-            {genre.name}
-          </span>
-        ))}
+          {(movie?.genres || []).map((genre, idx) => (
+            <span
+              key={genre.id || idx}
+              className="mr-2 border rounded-2xl px-2.5"
+            >
+              {genre.name}
+            </span>
+          ))}
         </div>
-       
         <p className="mb-5">{movie.overview}</p>
         <p></p>
         <div className="flex gap-2.5">

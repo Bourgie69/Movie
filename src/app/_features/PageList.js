@@ -6,7 +6,11 @@ const PageList = (props) => {
   };
 
   const handlePrev = () => {
-    setPage((prev) => prev - 1);
+    if (page !== 1) {
+      setPage((prev) => prev - 1);
+    } else {
+      return;
+    }
   };
 
   return (

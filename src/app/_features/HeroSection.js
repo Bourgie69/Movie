@@ -31,23 +31,23 @@ const HeroSection = () => {
   useEffect(() => {
     getData();
   }, []);
+
+
   const currentMovie = nowPlaying[heroIndex];
-
-
 
   const getTrailer = async () => { 
     
-    const trailerLink = `https://api.themoviedb.org/3/movie/${currentMovie.id}/videos?language=en-US`;
+    const trailerLink = `https://api.themoviedb.org/3/movie/${currentMovie?.id}/videos?language=en-US`;
 
     const response = await fetch(trailerLink, options);
     const jsonData = await response.json();
-    console.log(jsonData)
     setTrailer(jsonData.results);
   };
 
   useEffect(() => {
+    if(!currentMovie?.id) return;
     getTrailer()
-  }, [])
+  }, [currentMovie])
 
 
   return (
@@ -62,7 +62,7 @@ const HeroSection = () => {
               rating={currentMovie.vote_average.toFixed(1)}
               desc={currentMovie.overview}
               imageSource={`https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`}
-              trailer={trailer}
+              trailer={trailer? trailer[0]: null}
             />
           ) : (
             <p>No movies found.</p>
