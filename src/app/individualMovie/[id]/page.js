@@ -8,6 +8,7 @@ import Image from "next/image";
 import StarIcon from "@/app/_icons/StarIcon";
 import Link from "next/link";
 import TrailerButton from "@/app/_components/TrailerButton";
+import TrailerButtonSecond from "@/app/_components/TrailerButtonSecond";
 
 const individual = () => {
   const [movie, setMovie] = useState([]);
@@ -59,16 +60,16 @@ const individual = () => {
   };
 
   useEffect(() => {
-    if (params?.id) return;
+    if (!params.id) return;
     getTrailer();
   }, []);
+
+
   useEffect(() => {
     getData();
     getCredits();
     getMore();
   }, [params.id]);
-
-  console.log(credits);
 
   return (
     <>
@@ -108,8 +109,10 @@ const individual = () => {
               height={400}
               width={750}
             />
-            <div className="relative bottom-12 left-2.5">
-              <TrailerButton trailer={trailer} />
+            <div>
+              <TrailerButtonSecond
+                trailer={trailer.find((t) => t?.type === "Trailer")}
+              />
             </div>
           </div>
         </div>{" "}
