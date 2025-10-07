@@ -4,14 +4,16 @@ import Footer from "@/app/_features/Footer";
 import Card from "@/app/_components/Cards";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import PageList from "@/app/_features/PageList";
 
 const genreMovies = () => {
   const params = useParams();
 
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const genreLink = `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${params.id}&page=1`;
+  const genreLink = `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${params.id}&page=${page}`;
 
   const options = {
     method: "GET",
@@ -32,7 +34,7 @@ const genreMovies = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -53,6 +55,7 @@ const genreMovies = () => {
           <p>None Found</p>
         )}
       </div>
+      <PageList page={page} setPage={setPage} />
 
       <Footer />
     </>

@@ -5,6 +5,7 @@ import LogoPurple from "../_icons/LogoPurple";
 import DropDownIcon from "../_icons/DropDownIcon";
 import SearchIcon from "../_icons/SearchIcon";
 import MoonIcon from "../_icons/MoonIcon";
+import SearchDropDown from "./SearchDropDown";
 
 const Header = () => {
   const [searchParams, setSearchParams] = useState("");
@@ -26,7 +27,7 @@ const Header = () => {
 
   const genrePage = (genreId) => {
     window.location.href = `/genres/${genreId}`;
-  }
+  };
 
   const getGenres = async () => {
     setLoading(true);
@@ -116,6 +117,10 @@ const Header = () => {
           )}
         </div>
       </div>
+
+          <SearchDropDown 
+          searchParam={searchParams}/>
+
     </>
   );
 };

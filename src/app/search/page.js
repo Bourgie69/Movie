@@ -4,15 +4,17 @@ import Footer from "../_features/Footer";
 import Card from "../_components/Cards";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import PageList from "../_features/PageList";
 
 const SearchResults = ({ search }) => {
 
+  const [page, setPage] = useState(1)
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const apiLink = `https://api.themoviedb.org/3/search/movie?query=${new URLSearchParams(
     window.location.search
-  ).get("query")}&language=en-US&page=1`;
+  ).get("query")}&language=en-US&page=${page}`;
 
   const options = {
     method: "GET",
@@ -33,7 +35,7 @@ const SearchResults = ({ search }) => {
 
   useEffect(() => {
     getData();
-  }, [search]);
+  }, [search, page]);
 
   searchResults.sort((a, b) => b.popularity - a.popularity);
 
@@ -62,6 +64,9 @@ const SearchResults = ({ search }) => {
           ))
         ): <p>No results.</p>}
       </div>
+      <PageList
+      page={page}
+      setPage={setPage}/>
       <Footer />
     </>
   );

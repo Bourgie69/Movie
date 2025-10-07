@@ -20,7 +20,7 @@ const Card = ({imageSource, title, rating, movId}) => {
       />
       <p className="flex items-center gap-1 pl-4 pt-2.5">
         <StarIcon/>
-        {rating}
+        {rating} / <span className="text-sm text-gray-500">10</span>
       </p>
       <p className="mt-2 font-semibold pl-4 line-clamp-2">{title}</p>
     </div>

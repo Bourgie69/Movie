@@ -64,12 +64,13 @@ const individual = () => {
     getTrailer();
   }, []);
 
-
   useEffect(() => {
     getData();
     getCredits();
     getMore();
   }, [params.id]);
+
+  moreMovies.sort((a, b) => b.popularity - a.popularity);
 
   return (
     <>
@@ -86,7 +87,8 @@ const individual = () => {
             <div className="flex items-center gap-2">
               <StarIcon />
               <p>
-                {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+                {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"} /{" "}
+                <span className="text-sm text-gray-500">10</span>
               </p>
             </div>
 

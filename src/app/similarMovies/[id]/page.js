@@ -31,6 +31,9 @@ const similarMovies = () => {
     getMovies()
   },[pageSlider])
 
+  movies.sort((a, b) => b.popularity - a.popularity);
+
+
   console.log(movies)
 
   return (
