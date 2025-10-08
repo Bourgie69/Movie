@@ -8,10 +8,11 @@ import { useState } from "react";
 
 const MoviesPage = () => {
   const [pageSlider, setPageSlider] = useState(1)
+  const [loading, setLoading] = useState(false)
   return (
     <>
       <Header />
-
+    
       <MovieList
         headerTag="Popular"
         seeMoreDisplay={false}

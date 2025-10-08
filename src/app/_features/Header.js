@@ -65,10 +65,9 @@ const Header = () => {
 
         <div className="flex gap-6 items-center">
           <div
-            className="flex items-center gap-2 border p-2 rounded-sm"
+            className="flex items-center gap-2 border p-2 rounded-sm cursor-pointer"
             onClick={() => {
               setShowGenres(!showGenres);
-              console.log(showGenres);
             }}
           >
             <DropDownIcon />
@@ -79,7 +78,7 @@ const Header = () => {
             <SearchIcon />
 
             <input
-              className="w-full"
+              className="w-full focus:outline-none"
               placeholder="Search..."
               onChange={handleSearch}
               onKeyDown={handleEnter}

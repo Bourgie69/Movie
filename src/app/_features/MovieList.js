@@ -3,13 +3,22 @@
 import Link from "next/link";
 import Card from "../_components/Cards";
 import { useState, useEffect } from "react";
+import LoadingCard from "../_components/LoadingCard";
+import ShortUniqueId from 'short-unique-id';
 
-const MovieList = ({ headerTag, seeMoreDisplay, category, routePage, pageNumber }) => {
+const MovieList = ({
+  headerTag,
+  seeMoreDisplay,
+  category,
+  routePage,
+  pageNumber,
+}) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const uid = new ShortUniqueId();
 
-  const apiLink =
-    `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=${pageNumber}`;
+
+  const apiLink = `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=${pageNumber}`;
 
   const options = {
     method: "GET",
@@ -44,20 +53,20 @@ const MovieList = ({ headerTag, seeMoreDisplay, category, routePage, pageNumber 
       </div>
 
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          movies.slice(0, 15).map((movie) => (
-            <Card
-              key={movie.id}
-              movId={movie.id}
-              alt={movie.title}
-              title={movie.title}
-              imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              rating={movie.vote_average.toFixed(1)}
-            />
-          ))
-        )}
+        {loading
+          ? Array.from({ length: 15 }).map(() => <LoadingCard key={uid.stamp(32)} />)
+          : movies
+              .slice(0, 15)
+              .map((movie) => (
+                <Card
+                  key={movie.id}
+                  movId={movie.id}
+                  alt={movie.title}
+                  title={movie.title}
+                  imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  rating={movie.vote_average.toFixed(1)}
+                />
+              ))}
       </div>
     </div>
   );

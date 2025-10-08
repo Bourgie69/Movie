@@ -8,13 +8,13 @@ const Card = ({imageSource, title, rating, movId}) => {
   }
   return (
     <div
-      className="bg-white rounded shadow transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer w-[200px] h-[400px] flex flex-col overflow-hidden"
+      className="bg-white rounded shadow transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer w-fit h-[55v2] flex flex-col overflow-hidden"
       onClick={getID}
     >
       <Image
         src={imageSource}
         alt={'poster'}
-        width={220}
+        width={300}
         height={330}
         className="object-cover rounded-t"
       />
@@ -22,7 +22,7 @@ const Card = ({imageSource, title, rating, movId}) => {
         <StarIcon/>
         {rating} / <span className="text-sm text-gray-500">10</span>
       </p>
-      <p className="mt-2 font-semibold pl-4 line-clamp-2">{title}</p>
+      <p className="mt-2 font-semibold pl-4 line-clamp-2 pb-4">{title}</p>
     </div>
   );
 };

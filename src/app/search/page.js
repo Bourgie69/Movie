@@ -2,15 +2,18 @@
 import Header from "../_features/Header";
 import Footer from "../_features/Footer";
 import Card from "../_components/Cards";
+import LoadingCard from "../_components/LoadingCard";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import PageList from "../_features/PageList";
+import ShortUniqueId from "short-unique-id";
 
 const SearchResults = ({ search }) => {
-
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const uid = ShortUniqueId();
 
   const apiLink = `https://api.themoviedb.org/3/search/movie?query=${new URLSearchParams(
     window.location.search
@@ -50,9 +53,13 @@ const SearchResults = ({ search }) => {
       </p>
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
         {loading ? (
-          <p>Loading...</p>
+          Array.from({ length: 20 }).map(() => (
+            <LoadingCard key={uid.stamp(32)} />
+          ))
         ) : searchResults ? (
-          searchResults.slice(0, 15).map((movie) => (
+          searchResults
+            .slice(0, 15)
+            .map((movie) => (
               <Card
                 key={movie.id}
                 movId={movie.id}
@@ -61,12 +68,12 @@ const SearchResults = ({ search }) => {
                 imageSource={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 rating={movie.vote_average?.toFixed(1)}
               />
-          ))
-        ): <p>No results.</p>}
+            ))
+        ) : (
+          <p>No results.</p>
+        )}
       </div>
-      <PageList
-      page={page}
-      setPage={setPage}/>
+      <PageList page={page} setPage={setPage} />
       <Footer />
     </>
   );

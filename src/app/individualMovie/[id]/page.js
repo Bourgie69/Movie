@@ -9,14 +9,20 @@ import StarIcon from "@/app/_icons/StarIcon";
 import Link from "next/link";
 import TrailerButton from "@/app/_components/TrailerButton";
 import TrailerButtonSecond from "@/app/_components/TrailerButtonSecond";
+import LoadingCard from "@/app/_components/LoadingCard";
+import ShortUniqueId from "short-unique-id";
 
 const individual = () => {
   const [movie, setMovie] = useState([]);
   const [credits, setCredits] = useState([]);
   const [moreMovies, setMoreMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [moreMoviesLoading, setMoreMoviesLoading] = useState(false);
+  const [creditsLoading, setCreditsLoading] = useState(false);
   const [trailer, setTrailer] = useState([]);
   const params = useParams();
+
+  const uid = new ShortUniqueId();
 
   const apiLink = `https://api.themoviedb.org/3/movie/${params.id}?language=en-US&page=1`;
 
@@ -33,15 +39,19 @@ const individual = () => {
     },
   };
   const getCredits = async () => {
+    setCreditsLoading(true);
     const response = await fetch(creditLink, options);
     const jsonData = await response.json();
     setCredits(jsonData);
+    setCreditsLoading(false);
   };
 
   const getMore = async () => {
+    setMoreMoviesLoading(true);
     const response = await fetch(moreLikeThisLink, options);
     const jsonData = await response.json();
     setMoreMovies(jsonData.results);
+    setMoreMoviesLoading(false);
   };
 
   const getData = async () => {
@@ -78,9 +88,17 @@ const individual = () => {
 
       <div className="px-10 pt-10">
         <div className="flex justify-between">
-          <div>
-            <p className="text-2xl font-bold">{movie.original_title}</p>
-            <p>{movie.release_date}</p>
+          <div className="flex flex-col gap-2 mb-4">
+            {loading ? (
+              <div className="h-[50px] w-[200px] bg-gray-200 rounded-full"></div>
+            ) : (
+              <p className="text-2xl font-bold">{movie.original_title}</p>
+            )}
+            {loading ? (
+              <div className="h-[50px] w-[100px] bg-gray-200 rounded-full"></div>
+            ) : (
+              <p>{movie.release_date}</p>
+            )}
           </div>
           <div>
             <p>Rating</p>
@@ -95,47 +113,79 @@ const individual = () => {
             <p>{movie.vote_count ? movie.vote_count : "N/A"}</p>
           </div>
         </div>
-        <div className="flex gap-2.5">
-          <div>
-            <Image
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt="Movie Poster"
-              height={400}
-              width={275}
-            />
-          </div>
-          <div>
-            <Image
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-              alt="Movie Poster"
-              height={400}
-              width={750}
-            />
-            <div>
-              <TrailerButtonSecond
-                trailer={trailer.find((t) => t?.type === "Trailer")}
+        <div className="flex gap-2.5 justify-between w-full">
+          <div
+            className="w-[30vw]"
+            style={{
+              background: loading ? "gray" : "none",
+              minHeight: loading ? "35vh" : undefined,
+            }}
+          >
+            {!loading && (
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt="Movie Poster"
+                width={2}
+                height={3}
+                layout="responsive"
+                className="object-cover"
               />
-            </div>
+            )}
           </div>
-        </div>{" "}
+
+          <div
+            className="w-[80vw]"
+            style={{ background: loading ? "gray" : "none" }}
+          >
+            {!loading && (
+              <>
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                  alt="Backdrop"
+                  width={16}
+                  height={9}
+                  layout="responsive"
+                  className="object-cover"
+                />
+                <div>
+                  <TrailerButtonSecond
+                    trailer={trailer.find((t) => t?.type === "Trailer")}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
         <div className="py-2.5">
           {(movie?.genres || []).map((genre, idx) => (
             <span
               key={genre.id || idx}
               className="mr-2 border rounded-2xl px-2.5"
             >
-              {genre.name}
+              {loading ? "" : genre.name}
             </span>
           ))}
         </div>
-        <p className="mb-5">{movie.overview}</p>
+        <p
+          className="mb-5 w-full rounded-full"
+          style={{
+            height: loading ? "50px" : "fit-content",
+            background: loading ? "gray" : "none",
+          }}
+        >
+          {loading ? null : movie.overview}
+        </p>
         <p></p>
         <div className="flex gap-2.5">
           <p className="font-bold">Director</p>
-          {credits?.crew?.map((member) =>
-            member.job === "Director" ? (
-              <p key={member.id}>{member.name}</p>
-            ) : null
+          {creditsLoading ? (
+            <span className="h-[20px] w-[100px] bg-gray-200 rounded-full"></span>
+          ) : (
+            credits?.crew?.map((member) =>
+              member.job === "Director" ? (
+                <p key={member.id}>{member.name}</p>
+              ) : null
+            )
           )}
         </div>
         <hr />
@@ -145,8 +195,12 @@ const individual = () => {
             <button>See More &#8594;</button>
           </Link>
         </div>
-        <div className="flex gap-10 p-10">
-          {moreMovies ? (
+        <div className="flex gap-10 justify-between p-10 w-full">
+          {moreMoviesLoading ? (
+            Array.from({ length: 5 }).map(() => (
+              <LoadingCard key={uid.stamp(32)} />
+            ))
+          ) : moreMovies ? (
             moreMovies
               .slice(0, 5)
               .map((movie) => (

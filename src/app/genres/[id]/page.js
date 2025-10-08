@@ -2,12 +2,15 @@
 import Header from "@/app/_features/Header";
 import Footer from "@/app/_features/Footer";
 import Card from "@/app/_components/Cards";
+import LoadingCard from "@/app/_components/LoadingCard";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import PageList from "@/app/_features/PageList";
+import ShortUniqueId from "short-unique-id";
 
 const genreMovies = () => {
   const params = useParams();
+  const uid = ShortUniqueId();
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
@@ -40,7 +43,11 @@ const genreMovies = () => {
     <>
       <Header />
       <div className="grid grid-cols-5 grid-rows-2 gap-10 p-10">
-        {movies ? (
+        {loading ? (
+          Array.from({ length: 20 }).map(() => (
+            <LoadingCard key={uid.stamp(32)} />
+          ))
+        ) : movies ? (
           movies.map((movie) => (
             <Card
               key={movie.id}

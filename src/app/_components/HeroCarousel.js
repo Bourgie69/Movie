@@ -5,7 +5,7 @@ import TrailerButton from "./TrailerButton"
 
 const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
   return (
-    <div className=" w-full h-[700] text-white">
+    <div className=" w-full h-[900] text-white">
       
         <Image
         src={imageSource}
