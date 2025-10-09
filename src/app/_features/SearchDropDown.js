@@ -35,7 +35,7 @@ const SearchDropDown = ({ searchParam }) => {
   return (
     <>
       <div
-        className="bg-amber-100 absolute z-1 w-[600px] h-fit left-80 flex flex-col"
+        className="bg-amber-100 absolute z-1 w-[45vw] h-fit left-[30%] flex flex-col"
         style={{ display: searchParam ? "flex" : "block" }}
       >
         {searchResults.slice(0, 5).map((movie) => (

@@ -4,7 +4,7 @@ import Footer from "../_features/Footer";
 import Card from "../_components/Cards";
 import LoadingCard from "../_components/LoadingCard";
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import PageList from "../_features/PageList";
 import ShortUniqueId from "short-unique-id";
 
@@ -13,11 +13,13 @@ const SearchResults = ({ search }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const params = useSearchParams()
+
+  const query = params.get('query')
+
   const uid = ShortUniqueId();
 
-  const apiLink = `https://api.themoviedb.org/3/search/movie?query=${new URLSearchParams(
-    window.location.search
-  ).get("query")}&language=en-US&page=${page}`;
+  const apiLink = `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`;
 
   const options = {
     method: "GET",
@@ -48,7 +50,7 @@ const SearchResults = ({ search }) => {
       <p className="pl-10 pt-10 text-xl">
         Showing Results For:{" "}
         <span className="font-bold">
-          {new URLSearchParams(window.location.search).get("query")}
+          {query}
         </span>
       </p>
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">

@@ -13,10 +13,22 @@ const genreMovies = () => {
   const uid = ShortUniqueId();
 
   const [movies, setMovies] = useState([]);
+  const [genre, setGenre] = useState();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [genreLoading, setGenreLoading] = useState(false);
 
   const genreLink = `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${params.id}&page=${page}`;
+
+  const apiLink = `https://api.themoviedb.org/3/genre/movie/list?language=en`;
+
+  const getGenres = async () => {
+    setGenreLoading(true);
+    const response = await fetch(apiLink, options);
+    const jsonData = await response.json();
+    setGenre(jsonData.genres);
+    // setGenreLoading(false);
+  };
 
   const options = {
     method: "GET",
@@ -39,9 +51,21 @@ const genreMovies = () => {
     getData();
   }, [page]);
 
+  useEffect(() => {
+    getGenres();
+  }, []);
+
   return (
     <>
       <Header />
+
+      <div className="pl-4 pt-4 flex items-center gap-2">
+        <p className="text-lg">Showing Movies For :</p>
+        <span className="text-lg font-semibold">
+          {genre?.find((g) => g.id === Number(params.id))?.name || "Not found"}
+        </span>
+      </div>
+
       <div className="grid grid-cols-5 grid-rows-2 gap-10 p-10">
         {loading ? (
           Array.from({ length: 20 }).map(() => (

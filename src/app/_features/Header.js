@@ -3,12 +3,18 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import LogoPurple from "../_icons/LogoPurple";
 import DropDownIcon from "../_icons/DropDownIcon";
+import DropDownIconWhite from "../_icons/DropDownIconWhite";
 import SearchIcon from "../_icons/SearchIcon";
 import MoonIcon from "../_icons/MoonIcon";
+import SunIcon from "../_icons/SunIcon";
 import SearchDropDown from "./SearchDropDown";
+import SearchIconWhite from "../_icons/SearchIconWhite";
+import LogoWhite from "../_icons/LogoWhite";
 
 const Header = () => {
   const [searchParams, setSearchParams] = useState("");
+
+  const [darkMode, setDarkMode] = useState(false);
 
   const [genres, setGenres] = useState([]);
   const [showGenres, setShowGenres] = useState(false);
@@ -39,7 +45,7 @@ const Header = () => {
 
   useEffect(() => {
     getGenres();
-  }, []);
+  }, [showGenres]);
 
   const handleSearch = (e) => {
     setSearchParams(e.target.value);
@@ -54,28 +60,47 @@ const Header = () => {
 
   return (
     <>
-      <nav className="flex justify-around items-center p-2 bg-white shadow">
+      <nav
+        className="flex justify-around items-center p-2 shadow"
+        style={{ background: darkMode ? "black" : "white" }}
+      >
         <Link href="/">
           <div className="flex items-center gap-2 cursor-pointer">
-            <LogoPurple />
+            {darkMode ? <LogoWhite /> : <LogoPurple />}
 
-            <p className="italic font-bold text-purple-500 text-lg">Movie Z</p>
+            {!darkMode ? (
+              <p className="italic font-bold text-purple-500 text-lg">
+                Movie Z
+              </p>
+            ) : (
+              <p className="italic font-bold text-white text-lg">Movie Z</p>
+            )}
           </div>
         </Link>
 
         <div className="flex gap-6 items-center">
           <div
-            className="flex items-center gap-2 border p-2 rounded-sm cursor-pointer"
+            className="flex items-center gap-2 p-2 border rounded-sm cursor-pointer"
             onClick={() => {
               setShowGenres(!showGenres);
             }}
+            style={{
+              color: darkMode ? "white" : "black",
+              border: darkMode ? "solid-white" : "solid-black",
+            }}
           >
-            <DropDownIcon />
+            {darkMode ? <DropDownIconWhite /> : <DropDownIcon />}
 
             <p className="text-sm">Genre</p>
           </div>
-          <div className="flex border items-center rounded-sm p-2 gap-3 w-[400px]">
-            <SearchIcon />
+          <div
+            className="flex border items-center rounded-sm p-2 gap-3 w-[400px]"
+            style={{
+              border: darkMode ? "solid-white" : "solid-black",
+              color: darkMode ? "white" : "black",
+            }}
+          >
+            {darkMode ? <SearchIconWhite /> : <SearchIcon />}
 
             <input
               className="w-full focus:outline-none"
@@ -88,8 +113,11 @@ const Header = () => {
           </div>
         </div>
 
-        <button className=" w-8 h-8 rounded-lg flex items-center justify-center border">
-          <MoonIcon />
+        <button
+          className=" w-8 h-8 rounded-lg flex items-center justify-center border bg-white"
+          onClick={() => setDarkMode(!darkMode)}
+        >
+          {darkMode ? <SunIcon /> : <MoonIcon />}
         </button>
       </nav>
 
@@ -117,9 +145,7 @@ const Header = () => {
         </div>
       </div>
 
-          <SearchDropDown 
-          searchParam={searchParams}/>
-
+      <SearchDropDown searchParam={searchParams} />
     </>
   );
 };

@@ -110,7 +110,13 @@ const individual = () => {
               </p>
             </div>
 
-            <p>{movie.vote_count ? movie.vote_count : "N/A"}</p>
+            <p>
+              {movie.vote_count
+                ? movie.vote_count > 1000
+                  ? (movie.vote_count / 1000).toFixed(2) + "K"
+                  : movie.vote_count
+                : "N/A"}
+            </p>
           </div>
         </div>
         <div className="flex gap-2.5 justify-between w-full">

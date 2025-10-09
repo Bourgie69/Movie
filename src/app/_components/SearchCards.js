@@ -7,23 +7,28 @@ const SearchCards = ({ imageSource, title, rating, movId, releaseDate }) => {
   };
   return (
     <div
-      className="bg-white shadow transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer w-full h-fit flex flex-col overflow-hidden"
+      className="bg-white hover:bg-gray-200 cursor-pointer w-full h-fit flex flex-col overflow-hidden"
       onClick={getID}
     >
       <div className="flex">
-        <Image
+        <div className="w-[100px] h-[150px]">
+          <Image
           src={imageSource}
           alt={"poster"}
-          width={100}
-          height={200}
+          width={2}
+          height={3}
+          layout="responsive"
+          className="object-fill"
         />
-        <div>
-          <p className="mt-2 font-semibold pl-4 line-clamp-2">{title}</p>
-          <p className="flex items-center gap-1 pl-4 pt-2.5">
+        </div>
+        
+        <div className="pl-4 flex flex-col justify-center w-full">
+          <p className="font-semibold line-clamp-1">{title}</p>
+          <p className="flex items-center gap-1 pt-2.5">
             <StarIcon />
-            {rating}/<span className="text-sm text-gray-500">10</span>
+            {rating} /<span className="text-sm text-gray-500">10</span>
           </p>
-          <p className="pl-4">{releaseDate}</p>
+          <p>{releaseDate}</p>
         </div>
       </div>
     </div>
