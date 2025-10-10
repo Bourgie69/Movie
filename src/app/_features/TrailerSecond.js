@@ -10,13 +10,13 @@ const TrailerSecond = ({ trailer, watchTrailer, setWatchTrailer }) => {
 
   return (
     <>
-      <div>
+      <div className="">
         <iframe
           src={ watchTrailer? `https://www.youtube.com/embed/${trailer?.key}`: null}
           style={{
             display: watchTrailer ? "block" : "none",
           }}
-          className="absolute top-45 left-10% w-[60%] h-[35%]"
+          className="absolute top-25 left-[10vw] w-[80vw] h-[80%]"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Movie Trailer"
@@ -25,7 +25,7 @@ const TrailerSecond = ({ trailer, watchTrailer, setWatchTrailer }) => {
           style={{
             display: watchTrailer ? "block" : "none",
           }}
-          className="absolute top-30 border cursor-pointer rounded-full px-2.5 py-1 font-bold"
+          className="absolute top-10 left-[10vw] border cursor-pointer rounded-full px-2.5 py-1 font-bold"
           onClick={closeTrailer}
         >
           X
