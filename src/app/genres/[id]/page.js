@@ -27,7 +27,7 @@ const genreMovies = () => {
     const response = await fetch(apiLink, options);
     const jsonData = await response.json();
     setGenre(jsonData.genres);
-    // setGenreLoading(false);
+    setGenreLoading(false);
   };
 
   const options = {
@@ -60,7 +60,7 @@ const genreMovies = () => {
       <Header />
 
       <div className="pl-4 pt-4 flex items-center gap-2">
-        <p className="text-lg">Showing Movies For :</p>
+        <p className="text-lg pl-4">Showing Movies For :</p>
         <span className="text-lg font-semibold">
           {genre?.find((g) => g.id === Number(params.id))?.name || "Not found"}
         </span>
