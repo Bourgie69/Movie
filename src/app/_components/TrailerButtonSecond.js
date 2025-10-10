@@ -12,15 +12,14 @@ const TrailerButtonSecond = ({ trailer }) => {
 
   return (
     <>
-    <div className="relative bottom-12 left-2">
-       <button
-        className="flex items-center gap-2 bg-white text-black px-3 py-3 rounded-full hover:bg-gray-200 transition"
-        onClick={handleTrailer}
-      >
-        <PlayIcon />
-      </button> 
-    </div>
-      
+      <div className="relative bottom-12 left-2 ">
+        <button
+          className="bg-white border p-3 rounded-full hover:bg-gray-200"
+          onClick={handleTrailer}
+        >
+          <PlayIcon />
+        </button>
+      </div>
 
       <TrailerSecond
         trailer={trailer}

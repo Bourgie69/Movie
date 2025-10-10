@@ -1,20 +1,19 @@
 import PlayIcon from "../_icons/PlayIcon";
 import Image from "next/image";
 import StarIcon from "../_icons/StarIcon";
-import TrailerButton from "./TrailerButton"
+import TrailerButton from "./TrailerButton";
 
 const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
   return (
     <div className=" w-full h-[900] text-white">
-      
-        <Image
+      <Image
         src={imageSource}
         alt="Movie Poster"
         layout="fill"
         objectFit="cover"
       />
-      
-<div className=" absolute inset-0 bg-gradient-to-r from-black/30 to-black/30"/>
+
+      <div className=" absolute inset-0 bg-gradient-to-r from-black/60 to-black/0" />
 
       <div className="relative  h-full flex items-center pl-20">
         <div className="max-w-xl space-y-5">
@@ -29,8 +28,7 @@ const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
 
           <p className="text-sm text-gray-200">{desc}</p>
 
-          <TrailerButton 
-          trailer={trailer}/>
+          <TrailerButton trailer={trailer} />
         </div>
       </div>
     </div>
