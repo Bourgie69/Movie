@@ -26,7 +26,7 @@ const Trailer = ({ trailer, watchTrailer, setWatchTrailer }) => {
           style={{
             display: watchTrailer ? "block" : "none",
           }}
-          className="absolute top-10 left-[10vw] border cursor-pointer rounded-full px-2.5 py-1 font-bold"
+          className="absolute top-10 right-[12vw] border bg-black text-white cursor-pointer rounded-full px-2.5 py-1 font-bold"
           onClick={closeTrailer}
         >
           X

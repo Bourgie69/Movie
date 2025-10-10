@@ -17,6 +17,7 @@ const Card = ({ imageSource, title, rating, movId }) => {
         height={3}
         layout="responsive"
         objectFit="fill"
+        priority
       />
 
       <p className="flex items-center gap-1 pl-4 pt-2.5">

@@ -121,9 +121,9 @@ const individual = () => {
         </div>
         <div className="flex gap-2.5 justify-between w-full">
           <div
-            className="w-[30vw]"
+            className="w-[30vw] rounded-2xl"
             style={{
-              background: loading ? "gray" : "none",
+              background: loading ? "rgb(220,220,220)" : "none",
               minHeight: loading ? "35vh" : undefined,
             }}
           >
@@ -134,14 +134,14 @@ const individual = () => {
                 width={2}
                 height={3}
                 layout="responsive"
-                className="object-cover"
+                className="object-cover rounded-xl"
               />
             )}
           </div>
 
           <div
-            className="w-[80vw]"
-            style={{ background: loading ? "gray" : "none" }}
+            className="w-[80vw] rounded-2xl"
+            style={{ background: loading ? "rgb(220,220,220)" : "none" }}
           >
             {!loading && (
               <>
@@ -151,7 +151,7 @@ const individual = () => {
                   width={16}
                   height={9}
                   layout="responsive"
-                  className="object-cover"
+                  className="object-cover rounded-xl"
                 />
                 <div>
                   <TrailerButtonSecond
@@ -176,13 +176,13 @@ const individual = () => {
           className="mb-5 w-full rounded-full"
           style={{
             height: loading ? "50px" : "fit-content",
-            background: loading ? "gray" : "none",
+            background: loading ? "rgb(220,220,220)" : "none",
           }}
         >
           {loading ? null : movie.overview}
         </p>
         <p></p>
-        <div className="flex gap-2.5">
+        <div className="flex gap-2.5 mb-2.5">
           <p className="font-bold">Director</p>
           {creditsLoading ? (
             <span className="h-[20px] w-[100px] bg-gray-200 rounded-full"></span>

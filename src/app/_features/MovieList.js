@@ -52,7 +52,7 @@ const MovieList = ({
         )}
       </div>
 
-      <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8">
+      <div className="grid grid-cols-3 md:grid-cols-5 gap-10 mb-8">
         {loading
           ? Array.from({ length: 15 }).map(() => <LoadingCard key={uid.stamp(32)} />)
           : movies
