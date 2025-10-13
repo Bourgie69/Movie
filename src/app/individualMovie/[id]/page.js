@@ -206,7 +206,7 @@ const individual = () => {
         </div>
 
         <p
-          className="hidden md:block mb-5 w-full rounded-full"
+          className="hidden md:block mt-5 mb-5 w-full rounded-full"
           style={{
             height: loading ? "50px" : "fit-content",
             background: loading ? "rgb(220,220,220)" : "none",
