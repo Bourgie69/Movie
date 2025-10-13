@@ -30,7 +30,7 @@ const similarMovies = () => {
     const res = await fetch(apiLink, options);
     const jsonData = await res.json();
     setMovies(jsonData.results);
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const similarMovies = () => {
   return (
     <>
       <Header />
-      <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
+      <div className="grid grid-cols-3 md:grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
         {loading
           ? Array.from({ length: 20 }).map(() => (
               <LoadingCard key={uid.stamp(32)} />

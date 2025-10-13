@@ -119,26 +119,7 @@ const individual = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2.5 justify-between w-full">
-          <div
-            className="w-[30vw] rounded-2xl"
-            style={{
-              background: loading ? "rgb(220,220,220)" : "none",
-              minHeight: loading ? "35vh" : undefined,
-            }}
-          >
-            {!loading && (
-              <Image
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt="Movie Poster"
-                width={2}
-                height={3}
-                layout="responsive"
-                className="object-cover rounded-xl"
-              />
-            )}
-          </div>
-
+        <div className="flex flex-row-reverse gap-2.5 justify-between w-full">
           <div
             className="w-[80vw] rounded-2xl"
             style={{ background: loading ? "rgb(220,220,220)" : "none" }}
@@ -161,6 +142,24 @@ const individual = () => {
               </>
             )}
           </div>
+          <div
+            className="w-[30vw] rounded-2xl"
+            style={{
+              background: loading ? "rgb(220,220,220)" : "none",
+              minHeight: loading ? "35vh" : undefined,
+            }}
+          >
+            {!loading && (
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt="Movie Poster"
+                width={2}
+                height={3}
+                layout="responsive"
+                className="object-cover rounded-xl"
+              />
+            )}
+          </div>
         </div>
         <div className="py-2.5">
           {(movie?.genres || []).map((genre, idx) => (
@@ -172,6 +171,7 @@ const individual = () => {
             </span>
           ))}
         </div>
+
         <p
           className="mb-5 w-full rounded-full"
           style={{
@@ -201,7 +201,7 @@ const individual = () => {
             <button>See More &#8594;</button>
           </Link>
         </div>
-        <div className="flex gap-10 justify-between p-10 w-full">
+        <div className="hidden md:flex gap-10 justify-between p-10 w-full">
           {moreMoviesLoading ? (
             Array.from({ length: 5 }).map(() => (
               <LoadingCard key={uid.stamp(32)} />
@@ -209,6 +209,28 @@ const individual = () => {
           ) : moreMovies ? (
             moreMovies
               .slice(0, 5)
+              .map((movie) => (
+                <Card
+                  key={movie.id}
+                  movId={movie.id}
+                  alt={movie.title}
+                  title={movie.title}
+                  imageSource={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  rating={movie.vote_average.toFixed(1)}
+                />
+              ))
+          ) : (
+            <p>None Found</p>
+          )}
+        </div>
+        <div className="flex gap-10 justify-between p-10 w-full md:hidden">
+          {moreMoviesLoading ? (
+            Array.from({ length: 5 }).map(() => (
+              <LoadingCard key={uid.stamp(32)} />
+            ))
+          ) : moreMovies ? (
+            moreMovies
+              .slice(0, 2)
               .map((movie) => (
                 <Card
                   key={movie.id}

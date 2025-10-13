@@ -5,7 +5,7 @@ import TrailerButton from "./TrailerButton";
 
 const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
   return (
-    <div className=" w-full h-[900] text-white">
+    <div className=" w-full h-[600] md:h-[900px] text-white">
       <Image
         src={imageSource}
         alt="Movie Poster"
@@ -22,7 +22,7 @@ const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
             <h2 className="font-bold text-3xl">{title}</h2>
             <div className="flex items-center gap-2 mt-2">
               <StarIcon />
-              <p className="font-semibold">{rating}</p>
+              <p className="font-semibold">{rating} / <span className="text-gray-300">10</span></p>
             </div>
           </div>
 

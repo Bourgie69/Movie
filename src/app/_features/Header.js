@@ -60,8 +60,8 @@ const Header = () => {
 
   return (
     <>
-      <nav
-        className="flex justify-around items-center p-2 shadow"
+      <nav 
+        className="flex justify-between h-[65px] md:justify-around items-center px-10 py-2 shadow"
         style={{ background: darkMode ? "black" : "white" }}
       >
         <Link href="/">
@@ -78,7 +78,7 @@ const Header = () => {
           </div>
         </Link>
 
-        <div className="flex gap-6 items-center">
+        <div className="hidden md:flex gap-6 items-center">
           <div
             className="flex items-center gap-2 p-2 border rounded-sm cursor-pointer"
             onClick={() => {
@@ -112,17 +112,21 @@ const Header = () => {
             />
           </div>
         </div>
-
-        <button
-          className=" w-8 h-8 rounded-lg flex items-center justify-center border bg-white"
-          onClick={() => setDarkMode(!darkMode)}
-        >
-          {darkMode ? <SunIcon /> : <MoonIcon />}
-        </button>
+        <div className="flex gap-2.5">
+          <div className="p-2 border rounded-sm cursor-pointer md:hidden">
+            <SearchIcon />
+          </div>{" "}
+          <button
+            className=" w-8 h-8 rounded-lg flex items-center justify-center border bg-white"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </div>
       </nav>
 
       <div
-        className="text-xs h-[fit] w-[fit] border bg-white absolute left-85 z-10 mt-2 p-4 rounded-xl"
+        className="text-xs h-[fit] w-[50vw] border bg-white absolute left-[30%] z-10 mt-2 p-4 rounded-xl"
         style={{ display: showGenres ? "block" : "none" }}
       >
         <p className="text-2xl font-semibold">Genres</p>

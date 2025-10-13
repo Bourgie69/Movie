@@ -5,7 +5,7 @@ import LogoWhite from "../_icons/LogoWhite";
 const Footer = () => {
   return (
     <>
-      <div className="flex justify-between w-full h-[200px] text-white p-10 bg-blue-600">
+      <div className="flex flex-col items-center justify-between md:flex-row gap-5 w-full h-fit text-white p-10 bg-blue-600">
         <div>
           <div className="flex gap-2">
             <LogoWhite/>
@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
           <div>
             <p>Follow us</p>
-            <div className="flex gap-2.5">
+            <div className="flex flex-col gap-2.5 md:flex-row">
               <p>Facebook</p>
               <p>Instagram</p>
               <p>Twitter</p>
