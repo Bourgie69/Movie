@@ -10,6 +10,7 @@ import SunIcon from "../_icons/SunIcon";
 import SearchDropDown from "./SearchDropDown";
 import SearchIconWhite from "../_icons/SearchIconWhite";
 import LogoWhite from "../_icons/LogoWhite";
+import RightArrow from "../_icons/RightArrow";
 
 const Header = () => {
   const [searchParams, setSearchParams] = useState("");
@@ -138,11 +139,12 @@ const Header = () => {
           ) : (
             genres.map((genre) => (
               <span
-                className="border h-fit w-fit py-0.5 px-2.5 rounded-3xl hover:cursor-pointer"
+                className="flex border h-fit w-fit py-0.5 px-2.5 rounded-3xl hover:cursor-pointer"
                 key={genre.id}
                 onClick={() => genrePage(genre.id)}
               >
                 {genre.name}
+                <RightArrow />
               </span>
             ))
           )}
