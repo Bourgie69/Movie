@@ -49,8 +49,8 @@ const HeroSection = () => {
 
   return (
     <>
-      <div className="bg-black h-[600] md:h-[900] flex items-center  relative">
-        <div className="flex absolute justify-between px-2 w-full">
+      <div className="bg-black h-[400] flex items-center relative sm:h-[600] md:h-[900] ">
+        <div className="flex justify-between px-2 w-full">
           {loading ? (
             <p>Loading...</p>
           ) : currentMovie ? (

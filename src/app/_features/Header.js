@@ -60,7 +60,7 @@ const Header = () => {
 
   return (
     <>
-      <nav 
+      <nav
         className="flex justify-between h-[65px] md:justify-around items-center px-10 py-2 shadow"
         style={{ background: darkMode ? "black" : "white" }}
       >
@@ -132,7 +132,7 @@ const Header = () => {
         <p className="text-2xl font-semibold">Genres</p>
         <p className="text-lg ">See lists of movies by genre</p>
         <hr />
-        <div className="grid grid-cols-4 gap-x-5 gap-y-2 pt-2">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-2 pt-2">
           {loading ? (
             <p>Loading</p>
           ) : (

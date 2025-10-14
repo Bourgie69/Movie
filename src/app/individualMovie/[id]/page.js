@@ -161,10 +161,20 @@ const individual = () => {
             )}
           </div>
         </div>
+        <div className="hidden md:block py-2">
+              {(movie?.genres || []).map((genre, idx) => (
+                <span
+                  key={genre.id || idx}
+                  className="mr-2 border rounded-2xl px-2.5"
+                >
+                  {loading ? "" : genre.name}
+                </span>
+              ))}
+            </div>
         <div className="flex gap-2.5 md:hidden">
           {!loading && (
             <div
-              className="w-[500px] rounded-2xl"
+              className="w-[500px] hidden sm:block rounded-2xl"
               style={{
                 background: loading ? "rgb(220,220,220)" : "none",
                 minHeight: loading ? "35vh" : undefined,
@@ -174,16 +184,15 @@ const individual = () => {
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                   alt="Movie Poster"
-                  width={2}
-                  height={3}
-                  layout="responsive"
-                  className="object-cover rounded-xl md:hidden"
+                  width={200}
+                  height={300}
+                  className="object-cover rounded-xl"
                 />
               )}
             </div>
           )}
           <div>
-            <div className="py-2.5">
+            <div className="py-2.5 flex">
               {(movie?.genres || []).map((genre, idx) => (
                 <span
                   key={genre.id || idx}

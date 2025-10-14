@@ -5,7 +5,7 @@ import TrailerButton from "./TrailerButton";
 
 const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
   return (
-    <div className=" w-full h-[600] md:h-[900px] text-white">
+    <div className=" w-full h-[400px] sm:h-[600px] md:h-[900px] text-white">
       <Image
         src={imageSource}
         alt="Movie Poster"
@@ -15,8 +15,8 @@ const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
 
       <div className=" absolute inset-0 bg-gradient-to-r from-black/60 to-black/0" />
 
-      <div className="relative  h-full flex items-center pl-20">
-        <div className="max-w-xl space-y-5">
+      <div className="relative h-full flex items-center pl-20">
+        <div className="max-w-2xs sm:max-w-lg md:max-w-2xl space-y-5">
           <div>
             <p className="text-lg text-gray-300">Now Playing:</p>
             <h2 className="font-bold text-3xl">{title}</h2>
@@ -26,7 +26,7 @@ const HeroCarousel = ({ title, rating, desc, imageSource, trailer }) => {
             </div>
           </div>
 
-          <p className="text-sm text-gray-200">{desc}</p>
+          <p className="text-sm line-clamp-4 text-gray-200">{desc}</p>
 
           <TrailerButton trailer={trailer} />
         </div>

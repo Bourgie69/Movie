@@ -52,11 +52,11 @@ const MovieList = ({
         )}
       </div>
 
-      <div className="grid grid-cols-3 md:grid-cols-5 gap-10 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 mb-8">
         {loading
-          ? Array.from({ length: 15 }).map(() => <LoadingCard key={uid.stamp(32)} />)
+          ? Array.from({ length: 10 }).map(() => <LoadingCard key={uid.stamp(32)} />)
           : movies
-              .slice(0, 15)
+              .slice(0, 10)
               .map((movie) => (
                 <Card
                   key={movie.id}
