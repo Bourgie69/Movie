@@ -25,15 +25,15 @@ const similarMovies = () => {
     },
   };
 
-  const getMovies = async () => {
-    setLoading(true);
-    const res = await fetch(apiLink, options);
-    const jsonData = await res.json();
-    setMovies(jsonData.results);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getMovies = async () => {
+      setLoading(true);
+      const res = await fetch(apiLink, options);
+      const jsonData = await res.json();
+      setMovies(jsonData.results);
+      setLoading(false);
+    };
+
     getMovies();
   }, [pageSlider]);
 

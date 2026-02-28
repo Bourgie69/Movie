@@ -17,16 +17,15 @@ const SearchDropDown = ({ searchParam }) => {
     },
   };
 
-  const getData = async () => {
-    setLoading(true);
-    const response = await fetch(apiLink, options);
-    const jsonData = await response.json();
-    setSearchResults(jsonData.results);
-    console.log(jsonData)
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const response = await fetch(apiLink, options);
+      const jsonData = await response.json();
+      setSearchResults(jsonData.results);
+      console.log(jsonData);
+      setLoading(false);
+    };
     getData();
   }, [searchParam]);
 
@@ -45,7 +44,7 @@ const SearchDropDown = ({ searchParam }) => {
             title={movie.title}
             rating={movie.vote_average.toFixed(1)}
             movId={movie.id}
-            releaseDate={movie.release_date.split('-')[0]}
+            releaseDate={movie.release_date.split("-")[0]}
           />
         ))}
       </div>

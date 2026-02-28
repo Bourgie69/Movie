@@ -4,7 +4,7 @@ import Link from "next/link";
 import Card from "../_components/Cards";
 import { useState, useEffect } from "react";
 import LoadingCard from "../_components/LoadingCard";
-import ShortUniqueId from 'short-unique-id';
+import ShortUniqueId from "short-unique-id";
 
 const MovieList = ({
   headerTag,
@@ -17,7 +17,6 @@ const MovieList = ({
   const [loading, setLoading] = useState(false);
   const uid = new ShortUniqueId();
 
-
   const apiLink = `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=${pageNumber}`;
 
   const options = {
@@ -29,15 +28,14 @@ const MovieList = ({
     },
   };
 
-  const getData = async () => {
-    setLoading(true);
-    const response = await fetch(apiLink, options);
-    const jsonData = await response.json();
-    setMovies(jsonData.results);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const response = await fetch(apiLink, options);
+      const jsonData = await response.json();
+      setMovies(jsonData.results);
+      setLoading(false);
+    };
     getData();
   }, [category, pageNumber]);
 
@@ -54,7 +52,9 @@ const MovieList = ({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 mb-8">
         {loading
-          ? Array.from({ length: 10 }).map(() => <LoadingCard key={uid.stamp(32)} />)
+          ? Array.from({ length: 10 }).map(() => (
+              <LoadingCard key={uid.stamp(32)} />
+            ))
           : movies
               .slice(0, 10)
               .map((movie) => (

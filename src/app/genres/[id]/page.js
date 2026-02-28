@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import PageList from "@/app/_features/PageList";
 import ShortUniqueId from "short-unique-id";
 
-const genreMovies = () => {
+const GenreMovies = () => {
   const params = useParams();
   const uid = ShortUniqueId();
 
@@ -93,4 +93,4 @@ const genreMovies = () => {
   );
 };
 
-export default genreMovies;
+export default GenreMovies;

@@ -21,29 +21,28 @@ const HeroSection = () => {
     },
   };
 
-  const getData = async () => {
-    setLoading(true);
-    const response = await fetch(apiLink, options);
-    const jsonData = await response.json();
-    setNowPlaying(jsonData.results.slice(0, 5));
-    setLoading(false);
-  };
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const response = await fetch(apiLink, options);
+      const jsonData = await response.json();
+      setNowPlaying(jsonData.results.slice(0, 5));
+      setLoading(false);
+    };
     getData();
   }, []);
 
   const currentMovie = nowPlaying[heroIndex];
 
-  const getTrailer = async () => {
-    const trailerLink = `https://api.themoviedb.org/3/movie/${currentMovie?.id}/videos?language=en-US`;
-
-    const response = await fetch(trailerLink, options);
-    const jsonData = await response.json();
-    setTrailer(jsonData.results);
-  };
-
   useEffect(() => {
     if (!currentMovie?.id) return;
+    const getTrailer = async () => {
+      const trailerLink = `https://api.themoviedb.org/3/movie/${currentMovie?.id}/videos?language=en-US`;
+
+      const response = await fetch(trailerLink, options);
+      const jsonData = await response.json();
+      setTrailer(jsonData.results);
+    };
     getTrailer();
   }, [currentMovie]);
 

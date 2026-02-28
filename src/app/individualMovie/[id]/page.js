@@ -12,7 +12,7 @@ import TrailerButtonSecond from "@/app/_components/TrailerButtonSecond";
 import LoadingCard from "@/app/_components/LoadingCard";
 import ShortUniqueId from "short-unique-id";
 
-const individual = () => {
+const Individual = () => {
   const [movie, setMovie] = useState([]);
   const [credits, setCredits] = useState([]);
   const [moreMovies, setMoreMovies] = useState([]);
@@ -38,45 +38,48 @@ const individual = () => {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
     },
   };
-  const getCredits = async () => {
-    setCreditsLoading(true);
-    const response = await fetch(creditLink, options);
-    const jsonData = await response.json();
-    setCredits(jsonData);
-    setCreditsLoading(false);
-  };
-
-  const getMore = async () => {
-    setMoreMoviesLoading(true);
-    const response = await fetch(moreLikeThisLink, options);
-    const jsonData = await response.json();
-    setMoreMovies(jsonData.results);
-    setMoreMoviesLoading(false);
-  };
-
-  const getData = async () => {
-    setLoading(true);
-    const response = await fetch(apiLink, options);
-    const jsonData = await response.json();
-    setMovie(jsonData);
-    setLoading(false);
-  };
-  const getTrailer = async () => {
-    const trailerLink = `https://api.themoviedb.org/3/movie/${params?.id}/videos?language=en-US`;
-
-    const response = await fetch(trailerLink, options);
-    const jsonData = await response.json();
-    setTrailer(jsonData.results);
-  };
 
   useEffect(() => {
     if (!params.id) return;
+
+    const getTrailer = async () => {
+      const trailerLink = `https://api.themoviedb.org/3/movie/${params?.id}/videos?language=en-US`;
+
+      const response = await fetch(trailerLink, options);
+      const jsonData = await response.json();
+      setTrailer(jsonData.results);
+    };
+
     getTrailer();
   }, []);
 
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const response = await fetch(apiLink, options);
+      const jsonData = await response.json();
+      setMovie(jsonData);
+      setLoading(false);
+    };
     getData();
+
+    const getCredits = async () => {
+      setCreditsLoading(true);
+      const response = await fetch(creditLink, options);
+      const jsonData = await response.json();
+      setCredits(jsonData);
+      setCreditsLoading(false);
+    };
     getCredits();
+
+    const getMore = async () => {
+      setMoreMoviesLoading(true);
+      const response = await fetch(moreLikeThisLink, options);
+      const jsonData = await response.json();
+      setMoreMovies(jsonData.results);
+      setMoreMoviesLoading(false);
+    };
+
     getMore();
   }, [params.id]);
 
@@ -162,15 +165,15 @@ const individual = () => {
           </div>
         </div>
         <div className="hidden md:block py-2">
-              {(movie?.genres || []).map((genre, idx) => (
-                <span
-                  key={genre.id || idx}
-                  className="mr-2 border rounded-2xl px-2.5"
-                >
-                  {loading ? "" : genre.name}
-                </span>
-              ))}
-            </div>
+          {(movie?.genres || []).map((genre, idx) => (
+            <span
+              key={genre.id || idx}
+              className="mr-2 border rounded-2xl px-2.5"
+            >
+              {loading ? "" : genre.name}
+            </span>
+          ))}
+        </div>
         <div className="flex gap-2.5 md:hidden">
           {!loading && (
             <div
@@ -232,7 +235,7 @@ const individual = () => {
             credits?.crew?.map((member) =>
               member.job === "Director" ? (
                 <p key={member.id}>{member.name}</p>
-              ) : null
+              ) : null,
             )
           )}
         </div>
@@ -294,4 +297,4 @@ const individual = () => {
   );
 };
 
-export default individual;
+export default Individual;

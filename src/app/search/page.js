@@ -13,9 +13,9 @@ const SearchResults = ({ search }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const params = useSearchParams()
+  const params = useSearchParams();
 
-  const query = params.get('query')
+  const query = params.get("query");
 
   const uid = ShortUniqueId();
 
@@ -30,15 +30,15 @@ const SearchResults = ({ search }) => {
     },
   };
 
-  const getData = async () => {
-    setLoading(true);
-    const response = await fetch(apiLink, options);
-    const jsonData = await response.json();
-    setSearchResults(jsonData.results);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const response = await fetch(apiLink, options);
+      const jsonData = await response.json();
+      setSearchResults(jsonData.results);
+      setLoading(false);
+    };
+
     getData();
   }, [search, page]);
 
@@ -48,10 +48,7 @@ const SearchResults = ({ search }) => {
     <>
       <Header />
       <p className="pl-10 pt-10 text-xl">
-        Showing Results For:{" "}
-        <span className="font-bold">
-          {query}
-        </span>
+        Showing Results For: <span className="font-bold">{query}</span>
       </p>
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
         {loading ? (

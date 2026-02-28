@@ -36,17 +36,17 @@ const Header = () => {
     window.location.href = `/genres/${genreId}`;
   };
 
-  const getGenres = async () => {
-    setLoading(true);
-    const response = await fetch(genreLink, options);
-    const jsonData = await response.json();
-    setGenres(jsonData.genres);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getGenres = async () => {
+      setLoading(true);
+      const response = await fetch(genreLink, options);
+      const jsonData = await response.json();
+      setGenres(jsonData.genres);
+      setLoading(false);
+    };
+
     getGenres();
-  }, [showGenres]);
+  }, []);
 
   const handleSearch = (e) => {
     setSearchParams(e.target.value);
