@@ -1,31 +1,36 @@
-const PageList = (props) => {
-  const { page, setPage } = props;
+"use client";
+
+import { useRouter } from "next/navigation";
+
+const PageList = ({ currentPage, query }) => {
+  const router = useRouter();
 
   const handleNext = () => {
-    setPage((prev) => prev + 1);
+    router.push(`/search?query=${query}&page=${currentPage + 1}`);
   };
 
   const handlePrev = () => {
-    if (page !== 1) {
-      setPage((prev) => prev - 1);
-    } else {
-      return;
+    if (currentPage > 1) {
+      router.push(`/search?query=${query}&page=${currentPage - 1}`);
     }
   };
 
   return (
-    <>
-      <div className="flex items-center justify-between px-10">
-        <p>
-          Showing results for{" "}
-          <span className="font-semibold">Page: {page}</span>
-        </p>
-        <div className="flex gap-2.5 p-10 justify-end">
-          <button onClick={handlePrev}>&#8592; Previous</button>
-          <button onClick={handleNext}>Next &#8594;</button>
-        </div>
+    <div className="flex items-center justify-between px-10">
+      <p>
+        Showing results for{" "}
+        <span className="font-semibold">Page: {currentPage}</span>
+      </p>
+
+      <div className="flex gap-2.5 p-10 justify-end">
+        <button onClick={handlePrev} disabled={currentPage === 1}>
+          &#8592; Previous
+        </button>
+        <button onClick={handleNext}>
+          Next &#8594;
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

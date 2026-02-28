@@ -1,48 +1,27 @@
-"use client";
 import Header from "../_features/Header";
 import Footer from "../_features/Footer";
 import Card from "../_components/Cards";
-import LoadingCard from "../_components/LoadingCard";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import PageList from "../_features/PageList";
-import ShortUniqueId from "short-unique-id";
 
-const SearchResults = ({ search }) => {
-  const [page, setPage] = useState(1);
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default async function SearchResults({ searchParams }) {
+  const query = searchParams.query || "";
+  const page = Number(searchParams.page) || 1;
 
-  const params = useSearchParams();
-
-  const query = params.get("query");
-
-  const uid = ShortUniqueId();
-
-  const apiLink = `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`;
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+      },
+      cache: "no-store",
     },
-  };
+  );
 
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      const response = await fetch(apiLink, options);
-      const jsonData = await response.json();
-      setSearchResults(jsonData.results);
-      setLoading(false);
-    };
+  const data = await response.json();
 
-    getData();
-  }, [search, page]);
-
-  searchResults.sort((a, b) => b.popularity - a.popularity);
+  const sortedResults =
+    data.results?.sort((a, b) => b.popularity - a.popularity) || [];
 
   return (
     <>
@@ -50,13 +29,10 @@ const SearchResults = ({ search }) => {
       <p className="pl-10 pt-10 text-xl">
         Showing Results For: <span className="font-bold">{query}</span>
       </p>
+
       <div className="grid grid-cols-5 grid-rows-2 gap-10 mb-8 p-10">
-        {loading ? (
-          Array.from({ length: 20 }).map(() => (
-            <LoadingCard key={uid.stamp(32)} />
-          ))
-        ) : searchResults ? (
-          searchResults
+        {sortedResults.length > 0 ? (
+          sortedResults
             .slice(0, 15)
             .map((movie) => (
               <Card
@@ -72,10 +48,9 @@ const SearchResults = ({ search }) => {
           <p>No results.</p>
         )}
       </div>
-      <PageList page={page} setPage={setPage} />
+
+      <PageList currentPage={page} query={query} />
       <Footer />
     </>
   );
-};
-
-export default SearchResults;
+}
