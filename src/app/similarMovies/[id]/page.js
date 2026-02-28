@@ -8,7 +8,7 @@ import LoadingCard from "@/app/_components/LoadingCard";
 import ShortUniqueId from "short-unique-id";
 import PageList from "@/app/_features/PageList";
 
-const similarMovies = () => {
+const SimilarMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageSlider, setPageSlider] = useState(1);
@@ -67,4 +67,4 @@ const similarMovies = () => {
   );
 };
 
-export default similarMovies;
+export default SimilarMovies;
